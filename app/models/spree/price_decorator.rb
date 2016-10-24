@@ -20,12 +20,14 @@ Spree::Price.class_eval do
   end
 
   def selected_calc(kind, value)
-    if kind == 'fixedprice'
+    if kind.to_s == 'fixedprice'
       Spree::Calculator::FixedAmountSalePriceCalculator.new
-    elsif kind == 'fixeddiscount'
+    elsif kind.to_s == 'fixeddiscount'
       Spree::Calculator::FixedAmountOffSalePriceCalculator.new
-    else
+    elsif kind.to_s == 'percentage'
       Spree::Calculator::PercentOffSalePriceCalculator.new
+    else
+      raise "Unknow calculator"
     end
   end
 
